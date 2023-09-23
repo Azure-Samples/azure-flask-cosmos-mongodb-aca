@@ -5,7 +5,7 @@ import pytest
 from flask import url_for
 import mongoengine as engine
 
-from flaskapp import create_app, db, seeder
+from flaskapp import create_app, seeder
 
 
 @pytest.fixture(scope="session")

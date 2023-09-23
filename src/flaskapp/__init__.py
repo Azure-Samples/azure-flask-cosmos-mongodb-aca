@@ -20,13 +20,9 @@ def create_app(test_config=None):
         app.config.from_object("flaskapp.config.production")  # pragma: no cover
         middleware = FlaskMiddleware(
             app,
-            exporter=AzureExporter(
-                connection_string=os.environ.get(
-                    "APPLICATIONINSIGHTS_CONNECTION_STRING", None
-                )
-            ),
+            exporter=AzureExporter(connection_string=os.environ.get("APPLICATIONINSIGHTS_CONNECTION_STRING", None)),
             sampler=ProbabilitySampler(rate=1.0),
-        )
+         )
 
     # Configure the database
     if test_config is not None:
@@ -44,7 +40,7 @@ def create_app(test_config=None):
     def seed_data(filename, drop):
         from . import seeder
 
-        seeder.seed_data(filename)
+        seeder.seed_data(filename, drop=drop)
         click.echo("Database seeded!")
 
     return app

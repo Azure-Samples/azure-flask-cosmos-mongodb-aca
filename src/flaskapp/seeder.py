@@ -1,6 +1,6 @@
 import json
 
-import models
+from . import models
 
 
 def seed_data(filename: str, drop: bool = False) -> None:
@@ -19,12 +19,7 @@ def seed_data(filename: str, drop: bool = False) -> None:
         for entry in data:
             if entry["model"] == "relecloud.destination":
 
-                if (
-                    models.Destination.objects.filter(
-                        name=entry["fields"]["name"]
-                    ).count()
-                    == 0
-                ):
+                if models.Destination.objects.filter(name=entry["fields"]["name"]).count() == 0:
                     destination = models.Destination(
                         name=entry["fields"]["name"],
                         description=entry["fields"].get("description", None),
@@ -35,10 +30,7 @@ def seed_data(filename: str, drop: bool = False) -> None:
 
             if entry["model"] == "relecloud.cruise":
 
-                if (
-                    models.Cruise.objects.filter(name=entry["fields"]["name"]).count()
-                    == 0
-                ):
+                if models.Cruise.objects.filter(name=entry["fields"]["name"]).count() == 0:
                     cruise = models.Cruise(
                         name=entry["fields"]["name"],
                         description=entry["fields"].get("description", None),
@@ -46,9 +38,7 @@ def seed_data(filename: str, drop: bool = False) -> None:
                     )
 
                 for destination_id in entry["fields"]["destinations"]:
-                    destination = models.Destination.objects.get(
-                        id=pk_maps[destination_id]
-                    )
+                    destination = models.Destination.objects.get(id=pk_maps[destination_id])
                     cruise.destinations.append(destination)
 
                 cruise.save()
