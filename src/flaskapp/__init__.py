@@ -22,7 +22,7 @@ def create_app(test_config=None):
             app,
             exporter=AzureExporter(connection_string=os.environ.get("APPLICATIONINSIGHTS_CONNECTION_STRING", None)),
             sampler=ProbabilitySampler(rate=1.0),
-         )
+        )
 
     # Configure the database
     if test_config is not None:
