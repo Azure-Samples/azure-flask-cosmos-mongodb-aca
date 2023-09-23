@@ -1,9 +1,9 @@
 import os
 import pathlib
 
+import mongoengine as engine
 import pytest
 from flask import url_for
-import mongoengine as engine
 
 from flaskapp import create_app, seeder
 
@@ -18,7 +18,7 @@ def app():
     dbname = os.environ["MONGODB_DATABASE"]
     config_override = {
         "TESTING": True,
-        "DATABASE_URI": f"mongodb://{dbuser}:{dbpass}@{dbhost}/test?authSource=admin",
+        "DATABASE_URI": f"mongodb://{dbuser}:{dbpass}@{dbhost}/{dbname}?authSource=admin",
     }
     app = create_app(config_override)
     db = engine.connect(host=app.config.get("DATABASE_URI"))  # noqa: F841
