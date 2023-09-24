@@ -1,7 +1,7 @@
 {
   "template": "https://github.com/kjaymiller/cookiecutter-relecloud",
-  "commit": "26cd02718e6bbfacd49cb94d96654942eb2da52c",
-  "checkout": null,
+  "commit": "579fd8e85025d578b52adfd49a93d465f65ae7a3",
+  "checkout": "modelsloc",
   "context": {
     "cookiecutter": {
       "project_name": "azure",
@@ -13,7 +13,10 @@
       "__src_folder_name": "azure_flask_cosmos_mongodb_aca",
       "__project_short_description": "Create a relecloud demo application with flask and cosmos-mongodb",
       "_copy_without_render": [
-        "root/.github/workflows/*"
+        ".github/workflows/azure-dev.yml",
+        ".github/workflows/cruft.yml",
+        ".github/workflows/devcontainer-ci.yml",
+        ".github/workflows/format.yml"
       ],
       "_extensions": [
         "extensions.GetUrlForBackend"

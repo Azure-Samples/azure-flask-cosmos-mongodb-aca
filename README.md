@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 # Deploy Flask Application with MongoDB via Azure Container Apps
 
 This project deploys a web application for a space travel agency using Flask. The application can be deployed to Azure with Azure Container Apps using the [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/overview).
@@ -20,24 +13,22 @@ If you're not using one of those options for opening the project, then you'll ne
 1. Install production requirements:
 
     ```sh
-    python -m pip install -r src/requirements.txt
+    python3 -m pip install -r src/requirements.txt
     ```
 
 
 1. Install the app as an editable package:
 
     ```sh
-    python -m pip install -e src
+    python3 -m pip install -e src
     ```
 
 
 1. Apply database migrations and seed initial data:
 
     ```sh
-    python3 -m flask --app src.flaskapp db upgrade --directory src/flaskapp/migrations
-    python3 -m flask --app src.flaskapp seed --filename src/seed_data.json
-```
-
+    python3 -m flask --app src.flaskapp seed --filename="src/seed_data.json" --drop
+    ```
 
 ## Running locally
 

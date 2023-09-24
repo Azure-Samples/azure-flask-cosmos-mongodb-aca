@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, render_template, request, url_for
 
-import models
+from . import models
 
 bp = Blueprint("pages", __name__)
 
@@ -26,11 +26,10 @@ def destinations():
 def destination_detail(pk):
     destination = models.Destination.objects.get(pk=pk)
 
-    cruises = models.Cruise.objects(destinations__in=[destination])
     return render_template(
         "destination_detail.html",
         destination=destination,
-        cruises=cruises,
+        cruises=models.Cruise.objects(destinations__in=[destination]),
     )
 
 
@@ -38,11 +37,10 @@ def destination_detail(pk):
 def cruise_detail(pk: int):
     cruise = models.Cruise.objects.get(pk=pk)
 
-    destinations = cruise.destinations
     return render_template(
         "cruise_detail.html",
         cruise=cruise,
-        destinations=destinations,
+        destinations=cruise.destinations,
     )
 
 
@@ -50,11 +48,7 @@ def cruise_detail(pk: int):
 def info_request():
     all_cruises = models.Cruise.objects.all()
 
-    return render_template(
-        "info_request_create.html",
-        cruises=all_cruises,
-        message=request.args.get("message"),
-    )
+    return render_template("info_request_create.html", cruises=all_cruises, message=request.args.get("message"))
 
 
 @bp.post("/info_request/")
@@ -67,7 +61,5 @@ def create_info_request():
         cruise_id=request.form["cruise_id"],
     )
     db_info_request.save()
-    success_message = (
-        f"Thank you, {name}! We will email you when we have more information!"
-    )
+    success_message = f"Thank you, {name}! We will email you when we have more information!"
     return redirect(url_for("pages.info_request", message=success_message))
