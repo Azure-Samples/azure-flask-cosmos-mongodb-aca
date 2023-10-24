@@ -1,0 +1,11 @@
+diff a/README.md b/README.md	(rejected hunks)
+@@ -27,8 +27,7 @@ If you're not using one of those options for opening the project, then you'll ne
+ 1. Apply database migrations and seed initial data:
+ 
+     ```sh
+-    python3 -m flask --app src.flaskapp db upgrade --directory src/flaskapp/migrations
+-    python3 -m flask --app src.flaskapp seed --filename src/seed_data.json
++    python3 -m flask --app src.flaskapp seed --filename="src/seed_data.json" --drop
+     ```
+ 
+ ## Running locally
