@@ -34,7 +34,7 @@ jobs:
             brew services start mongodb/brew/mongodb-community@5.0
             until mongosh --eval ';'; do sleep 1; done
             mongosh --eval '
-            use admin
+            use admin;
             db.createUser(
               {
                 user: "mongo",
@@ -44,7 +44,7 @@ jobs:
                   { role: "readWriteAnyDatabase", db: "admin" }
                 ]
               }
-            )'
+            );'
 
 
         - name: Setup python
