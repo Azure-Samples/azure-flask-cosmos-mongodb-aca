@@ -14,25 +14,30 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-20.04"]
+        os: ["ubuntu-20.04", "macos-latest", "macos-latest-xlarge"]
         python_version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
-    services:
-      db:
-        image: mongo:4.2.24
-        ports:
-          - 27017:27017
-        env:
-            MONGO_INITDB_ROOT_USERNAME: mongodb
-            MONGO_INITDB_ROOT_PASSWORD: mongodb
-            MONGO_INITDB_DATABASE: relecloud
-        options: >-
-          --health-cmd mongo
-          --health-start-period 20s
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        exclude:
+          - os: macos-latest-xlarge
+            python_version: 3.8
+          - os: macos-latest-xlarge
+            python_version: 3.9
+          - os: macos-latest-xlarge
+            python_version: "3.10"
     steps:
         - uses: actions/checkout@v3
+        - name: Start MongoDB
+          if:
+            matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+          run: |
+            brew tap mongodb/brew
+            brew install mongodb-community@5.0
+            brew services start mongodb-community@5.0
+          env:
+            MONGODB_HOST: localhost
+            MONGODB_USERNAME: mongodb
+            MONGODB_PASSWORD: mongodb
+            MONGODB_DATABASE: relecloud
+            MONGODB_PORT: 27017
         - name: Setup python
           uses: actions/setup-python@v2
           with:
