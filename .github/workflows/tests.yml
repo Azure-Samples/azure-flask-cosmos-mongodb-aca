@@ -34,6 +34,18 @@ jobs:
             brew services start mongodb/brew/mongodb-community@5.0
             until mongosh --eval ';'; do sleep 1; done
             mongosh --eval '
+            use admin
+            db.createUser(
+              {
+                user: "mongo",
+                pwd: "mongo",
+                roles: [
+                  { role: "userAdminAnyDatabase", db: "admin" },
+                  { role: "readWriteAnyDatabase", db: "admin" }
+                ]
+              }
+            );'
+            use test
             db.createUser(
               {
                 user: "mongo",
