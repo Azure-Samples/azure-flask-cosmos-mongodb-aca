@@ -33,7 +33,7 @@ jobs:
             brew install mongodb-community@5.0
             brew services start mongodb-community@5.0
             mongosh --eval '
-            use admin
+            use test
             db.createUser(
               {
                 user: "mongo",
@@ -44,6 +44,7 @@ jobs:
                 ]
               }
             )'
+
 
         - name: Setup python
           uses: actions/setup-python@v2
