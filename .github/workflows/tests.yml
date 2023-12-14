@@ -32,6 +32,19 @@ jobs:
             brew tap mongodb/brew
             brew install mongodb-community@5.0
             brew services start mongodb-community@5.0
+            mongo --eval'
+            use admin
+            db.createUser(
+              {
+                user: "mongo",
+                pwd: "mongo", // or cleartext password
+                roles: [
+                  { role: "userAdminAnyDatabase", db: "admin" },
+                  { role: "readWriteAnyDatabase", db: "admin" }
+                ]
+              }
+            )'
+
         - name: Setup python
           uses: actions/setup-python@v2
           with:
