@@ -37,7 +37,7 @@ jobs:
             db.createUser(
               {
                 user: "mongo",
-                pwd: "mongo", // or cleartext password
+                pwd: "mongo",
                 roles: [
                   { role: "userAdminAnyDatabase", db: "admin" },
                   { role: "readWriteAnyDatabase", db: "admin" }
@@ -62,7 +62,7 @@ jobs:
             python3 -m pytest
           env:
             MONGODB_HOST: localhost
-            MONGODB_USERNAME: mongod
-            MONGODB_PASSWORD: 
+            MONGODB_USERNAME: mongo
+            MONGODB_PASSWORD: mongo
             MONGODB_DATABASE: test 
             MONGODB_PORT: 27017
