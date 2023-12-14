@@ -45,9 +45,8 @@ jobs:
                 ]
               }
             );'
-            brew services restart mongodb/brew/mongodb-community@5.0
-            until mongosh --eval ';'; do sleep 1; done
-            mongosh -u mongo -p mongo --eval ';'
+            mongosh --username "mongo" --password "mongo" --authenticationDatabase test --authenticationMechanism SCRAM-SHA-256
+
 
         - name: Setup python
           uses: actions/setup-python@v2
