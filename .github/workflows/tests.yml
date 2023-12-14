@@ -31,8 +31,8 @@ jobs:
           run: |
             brew tap mongodb/brew
             brew install mongodb-community@5.0
-            brew services brew services start mongodb/brew/mongodb-community@5.0
-            sleep 20
+            brew services start mongodb/brew/mongodb-community@5.0
+            until mongosh --eval ';' do sleep 1; done
             mongosh --eval '
             use test
             db.createUser(
