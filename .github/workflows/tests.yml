@@ -45,7 +45,8 @@ jobs:
                 ]
               }
             );'
-
+            brew services restart mongodb/brew/mongodb-community@5.0
+            until mongosh --eval ';'; do sleep 1; done
 
         - name: Setup python
           uses: actions/setup-python@v2
