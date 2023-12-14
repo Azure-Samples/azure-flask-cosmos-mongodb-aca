@@ -44,8 +44,8 @@ jobs:
                   { role: "readWriteAnyDatabase", db: "admin" }
                 ]
               }
-            );'
-            use test
+            );
+            use test;
             db.createUser(
               {
                 user: "mongo",
