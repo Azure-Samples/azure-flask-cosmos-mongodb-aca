@@ -25,19 +25,19 @@ jobs:
             python_version: "3.10"
     steps:
         - uses: actions/checkout@v3
-        - name: Start MongoDB
+        - name: Start MongoDB {{ matrix.os }}
           if:
-            matrix.os == 'macos-latest' || matrix.os == 'macos-latest-xlarge'
+            matrix.os == 'macos-latest-xlarge'
           run: |
             brew tap mongodb/brew
             brew install mongodb-community@5.0
             brew services start mongodb-community@5.0
-          env:
-            MONGODB_HOST: localhost
-            MONGODB_USERNAME: mongodb
-            MONGODB_PASSWORD: mongodb
-            MONGODB_DATABASE: relecloud
-            MONGODB_PORT: 27017
+        - name: Start MongoDB {{ matrix.os }}
+          if:
+            matrix.os == 'windows'
+          run: |
+            
+
         - name: Setup python
           uses: actions/setup-python@v2
           with:
@@ -55,7 +55,7 @@ jobs:
             python3 -m pytest
           env:
             MONGODB_HOST: localhost
-            MONGODB_USERNAME: mongodb
-            MONGODB_PASSWORD: mongodb
-            MONGODB_DATABASE: relecloud
+            MONGODB_USERNAME: 
+            MONGODB_PASSWORD: 
+            MONGODB_DATABASE: test 
             MONGODB_PORT: 27017
