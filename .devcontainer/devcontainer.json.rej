@@ -1,9 +1,0 @@
-diff a/.devcontainer/devcontainer.json b/.devcontainer/devcontainer.json	(rejected hunks)
-@@ -43,6 +43,6 @@
-         // Required for azd to package the app to ACA
-         "ghcr.io/devcontainers/features/docker-in-docker:2": {}
-     },
--    "postCreateCommand": "pip install -r requirements-dev.in && pip install -e src"
-+    "postCreateCommand": "pip install -r requirements-dev.in && pip install -e src && python3 -m flask --app src/flaskapp seed --filename src/seed_data.json --drop"
- }
- 
