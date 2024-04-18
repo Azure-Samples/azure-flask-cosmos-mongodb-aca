@@ -56,18 +56,18 @@ module app 'core/host/container-app-upsert.bicep' = {
         secretRef: 'secret-key'
       }
       ]
-    secrets: [
-        {
-          name: 'secret-key'
-          keyVaultUrl: '${keyVault.properties.vaultUri}secrets/SECRETKEY'
-          identity: webIdentity.id
-        }
-        {
-          name: 'azure-cosmos-connection-string'
+    secrets: {
+     }
+    keyvaultIdentities: {
+      'secret-key': {
+        keyVaultUrl: '${keyVault.properties.vaultUri}secrets/SECRETKEY'
+        identity: webIdentity.id
+      }
+        'azure-cosmos-connection-string': {
           keyVaultUrl: '${keyVault.properties.vaultUri}secrets/AZURE-COSMOS-CONNECTION-STRING'
           identity: webIdentity.id
         }
-      ]
+    }
     targetPort: 8000
   }
 }
