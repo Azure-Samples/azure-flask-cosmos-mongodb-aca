@@ -10,22 +10,13 @@ param identityName string
 param serviceName string = 'web'
 param keyVaultName string
 
-resource webIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
-  name: identityName
-  location: location
-}
-
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
 }
 
-// Give the app access to KeyVault
-module webKeyVaultAccess './core/security/keyvault-access.bicep' = {
-  name: 'web-keyvault-access'
-  params: {
-    keyVaultName: keyVault.name
-    principalId: webIdentity.properties.principalId
-  }
+resource webIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+  name: identityName
+  location: location
 }
 
 module app 'core/host/container-app-upsert.bicep' = {
